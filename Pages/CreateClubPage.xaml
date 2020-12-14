@@ -1,0 +1,59 @@
+﻿<Page x:Class="UEFA.Pages.CreateClubPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UEFA.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreateClubPage">
+
+    <Grid>
+        <ScrollViewer>
+        <StackPanel x:Name="StackAdd" Margin="10">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Добавление Клуба" FontSize="20"></Label>
+            <Label>Название клуба*</Label>
+                <TextBox   x:Name="ClubNameTextBox" Text="{Binding Teams.Team}"></TextBox>
+            <Label>Тренер*</Label>
+                <TextBox x:Name="CoachButton" Text="{Binding Teams.Coach}"></TextBox>
+            <Label>Страна*</Label>
+                <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding Teams.CountryT}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Photo}"  Width="40" Height="20" Stretch="Fill"></Image>
+                                <Label Content="{Binding Country}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label>Стадион*</Label>
+                <ComboBox x:Name="StadiumComboBox" ItemsSource="{Binding Stadiums}" SelectedItem="{Binding Teams.StadiumT}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Photo}"   Width="40" Height="20" Stretch="Fill" ></Image>
+                                <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="{Binding Stadium}"></Label>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label HorizontalContentAlignment="Center">Эмблема*</Label>
+                    <Image Grid.Row="1" x:Name="PhotoImage" Source="{Binding Teams.Photo}"  HorizontalAlignment="Stretch"  Width="100" Height="100"  ></Image>
+                    <Label Grid.Row="2" BorderBrush="Black" BorderThickness="3" Width="105" Height="105"></Label>
+                </Grid>
+                <Button Margin="10" Content="Выбрать изображение" Click="Button_Click"/>
+                <Label>Количество трофеев ЛЧ</Label>
+                <TextBox x:Name="CupTextBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Teams.CupUEFA}"></TextBox>
+                <Label Content="Инфо о клубе"/>
+                <TextBox TextWrapping="Wrap" AcceptsReturn="True"  Text="{Binding Teams.Info}" Height="60"/>
+                <Button Margin="20" Click="AddButton" >Добавить</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

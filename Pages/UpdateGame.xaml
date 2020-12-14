@@ -1,0 +1,57 @@
+﻿<Page x:Class="UEFA.Pages.UpdateGame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UEFA.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UpdateGame">
+
+    <Grid>
+        <StackPanel x:Name="StackAdd" Margin="10">
+            <Label HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Content="Изменить матч" FontSize="20"></Label>
+            <ComboBox ItemsSource="{Binding Games}" x:Name="ComboBoxGame"  HorizontalContentAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  />
+                            </Grid.RowDefinitions>
+                            <Image  Source="{Binding TeamT.Photo}" HorizontalAlignment="Left"  Width="40" Height="20" Stretch="Fill"/>
+                            <Image Grid.Column="2" Source="{Binding TeamT1.Photo}" HorizontalAlignment="Right"   Width="40" Height="20" Stretch="Fill" />
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14">
+                                <Run Text="{Binding TeamT.Team}"/>
+                                <Run Text="{Binding Score}"/>
+                                <Run Text="{Binding TeamT1.Team}"/>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Стадион"/>
+            <ComboBox ItemsSource="{Binding Stadiums}" SelectedItem="{Binding ElementName=ComboBoxGame , Path=SelectedItem.StadiumT}"  HorizontalContentAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Photo}"  Width="40" Height="20" Stretch="Fill"></Image>
+                            <Label Content="{Binding Stadium}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label>Счет*</Label>
+            <TextBox  x:Name="ClubNameTextBox" Text="{Binding ElementName=ComboBoxGame , Path=SelectedItem.Score}"></TextBox>
+            <Label>Судья*</Label>
+            <TextBox x:Name="CoachButton" Text="{Binding ElementName=ComboBoxGame , Path=SelectedItem.Referee}"></TextBox>
+            <Label>Время*</Label>
+            <DatePickerTextBox x:Name="timePicker" Text="{Binding ElementName=ComboBoxGame , Path=SelectedItem.Date}"></DatePickerTextBox>
+            <Button Margin="0,20" Click="Button_Click">Сохранить изменения</Button>
+        </StackPanel>
+    </Grid>
+</Page>

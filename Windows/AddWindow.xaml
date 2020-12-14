@@ -1,0 +1,42 @@
+﻿<Window x:Class="UEFA.Windows.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UEFA.Windows"
+        mc:Ignorable="d"
+        Title="Панель администратора" Height="600" Width="800">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="DarkGray"></SolidColorBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.RowSpan="2" Fill="Black"></Rectangle>
+        <StackPanel Grid.RowSpan="2" Margin="2" >
+            <Button Content="Добавить клуб" Background="Green" Margin="0,5" x:Name="CreateClubButton" Click="CRUDButtons"></Button>
+            <Button Content="Добавить игрока" Background="Green" Margin="0,10" x:Name="CreatePlayerbButton" Click="CRUDButtons"></Button>
+            <Button Content="Добавить игру" Background="Green" Margin="0,10" x:Name="CreateGameButton" Click="CRUDButtons"></Button>
+            <Button Content="Добавить стадион" Background="Green" Margin="0,10" x:Name="CreateStadiumButton" Click="CRUDButtons"></Button>
+            <Button Content="Изменить клуб" Background="Yellow" Margin="0,10" x:Name="UpdateClubButton" Click="CRUDButtons"></Button>
+            <Button Content="Изменить игрока" Background="Yellow" Margin="0,10" x:Name="UpdatePlayerButton" Click="CRUDButtons"></Button>
+            <Button Content="Изменить игру" Background="Yellow" Margin="0,10" x:Name="UpdateGameButton" Click="CRUDButtons"></Button>
+            <Button Content="Изменить стадион" Background="Yellow" Margin="0,10" x:Name="UpdateStadiumButton" Click="CRUDButtons"></Button>
+            <Button Content="Изменить статистику" Background="Yellow" Margin="0,10" x:Name="UpdateStatisticButton" Click="CRUDButtons"></Button>
+            <Button Content="Удалить клуб" Background="Red" Margin="0,10" x:Name="DeleteClubButton" Click="CRUDButtons"></Button>
+            <Button Content="Удалить игрока" Background="red" Margin="0,10" x:Name="DeletePlayerButton" Click="CRUDButtons"></Button>
+            <Button Content="Удалить игру" Background="red" Margin="0,10" x:Name="DeleteGameButton" Click="CRUDButtons"></Button>
+            <Button Content="Удалить стадион" Background="red" Margin="0,10" x:Name="DeleteStadiumButton" Click="CRUDButtons"></Button>
+            <Button Content="Назад" Background="Gray" x:Name="ExitButton" Click="CRUDButtons"  Margin="0,5" ></Button>
+        </StackPanel>
+        <Ellipse Grid.Column="1" Width="400" Height="70" Fill="Black"></Ellipse>
+        <Label Grid.Column="1" Foreground="WhiteSmoke" Content="Панель администратора" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" FontWeight="ExtraBlack"></Label>
+        <Frame  NavigationUIVisibility="Hidden"  x:Name="CRUDFrame" Grid.Column="1" Grid.Row="1" ></Frame>
+    </Grid>
+</Window>

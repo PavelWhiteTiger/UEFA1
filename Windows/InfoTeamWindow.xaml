@@ -1,0 +1,70 @@
+﻿<Window x:Class="UEFA.Windows.InfoTeamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UEFA.Windows"
+        xmlns:converter="clr-namespace:UEFA.Converter"
+        mc:Ignorable="d"
+        Title="Карточка команды" Height="380" Width="800"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <converter:ConvertToPhonoOrNull x:Key="PhotoConverter"/>
+    </Window.Resources>
+    <Canvas>
+        <Canvas.Background >
+            <SolidColorBrush Color="LightGray" />
+        </Canvas.Background>
+        <Image Source="{Binding Team.Photo , Converter={StaticResource PhotoConverter}}" Stretch="Uniform" Height="150" Width="250" Canvas.Left="10" Canvas.Top="10"></Image>
+        <Image Source="{Binding Team.CountryT.Photo , Converter={StaticResource PhotoConverter}}" Stretch="Uniform" Height="150" Width="250" Canvas.Left="10" Canvas.Top="165"></Image>
+        <TextBlock Canvas.Left="265" Canvas.Top="10">
+                <Run Text="Игроки команды"/>
+                <Run FontWeight="Black" Text="{Binding Team.Team}"/>
+        </TextBlock>
+        <ListBox ItemsSource="{Binding Players}"  Canvas.Left="265" Canvas.Top="30" Width="200" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="16">
+                        <Run Text="{Binding Name}"></Run>
+                        <Run Text="{Binding LastName}"></Run>
+                        <Run Foreground="Red" Text="{Binding RoleT.Role}"></Run>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ScrollViewer Canvas.Left="470" FontStretch="Normal" Height="341" Width="314" >
+            <TextBlock TextWrapping="Wrap">
+            <Run Text="{Binding Team.Team}" FontSize="16" FontWeight="Black"></Run>
+            <Run Text="{Binding Player.LastName}" FontSize="16" FontWeight="Black" ></Run>
+            <LineBreak/>
+            <Run>О Клубе :</Run>
+            <LineBreak/>
+            <Run Text="{Binding Team.Info}"></Run>
+            <LineBreak/>
+                <Run Text="Колличество кубков Лиги чемпионов :"/>
+                <Run Text="{Binding Team.CupUEFA}"/>
+                <LineBreak/>
+                <Run Text="Стадион :"/>
+                <Run Text="{Binding Team.StadiumT.Stadium}"/>
+                <LineBreak/>
+            <Run Text="Забитые голы:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.Scored}"/>
+                                                    <LineBreak></LineBreak>
+                                    <Run Text="Красные карточки:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.RedCards}"/>
+                                                    <LineBreak></LineBreak>
+                                    <Run Text="Желтые карточки:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.YellowCards}"/>
+                                                    <LineBreak></LineBreak>
+                                    <Run Text="Пропущенные голы:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.Missed}"/>
+                                                    <LineBreak></LineBreak>
+                                    <Run Text="Спасение ворот:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.SaveGoal}"/>
+                                                    <LineBreak></LineBreak>
+                                    <Run Text="Замены:"/>
+                                    <Run Text="{Binding Team.StatisticTeamT.Substitution}"/>
+            </TextBlock>
+        </ScrollViewer>
+    </Canvas>
+</Window>

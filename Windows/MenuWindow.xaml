@@ -1,0 +1,287 @@
+﻿<Window x:Class="UEFA.Windows.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UEFA.Windows"
+        xmlns:converter="clr-namespace:UEFA.Converter"
+        mc:Ignorable="d"
+        Title="Главное меню" Height="780" Width="1300" WindowStyle="ThreeDBorderWindow" Icon="4288587awardchampioncuptrophywinner-115769_115744.ico"
+        >
+    <Window.Background >
+        <ImageBrush ImageSource="../Images/Menu.jpg" Opacity="0.5"/>
+    </Window.Background>
+    <Window.Resources>
+        <converter:ConverterToWin  x:Key="ConverterToWin"/>
+        <converter:ConverterToPhoto  x:Key="ConverterToPhoto"/>
+        <converter:ConvertToPhonoOrNull x:Key="qqq"/>
+    </Window.Resources>
+    <Grid >
+        <Grid.Background>
+            <SolidColorBrush Color="#40999999"></SolidColorBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="2"  Background="Purple" Content="Команды :" Foreground="White" FontSize="14" FontWeight="Black"/>
+        <Label Grid.Column="3" Content="Найти игру :" Foreground="White" FontSize="14" FontWeight="Black"/>
+        <Label Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="2"  Grid.Row="2" Background="Purple" Content="Игроки :" Foreground="White" FontSize="14" FontWeight="Black"/>
+        <Label Grid.Column="3" Grid.Row="2" Content="О игре :" Foreground="White" FontSize="14" FontWeight="Black"/>
+        <DataGrid GridLinesVisibility="Horizontal"  CanUserAddRows="False"  BorderBrush="Black" BorderThickness="2" x:Name="DataGridTeam" Grid.Row="1"  Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Teams}">
+            <DataGrid.Background>
+                <SolidColorBrush Color="#00999999"></SolidColorBrush>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Страна">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Image   Source="{Binding CountryT.Photo}" Height="50" Width="90"  Stretch="Uniform"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Эмблема">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Image Source="{Binding Photo, Converter={StaticResource qqq}}" Height="50" Width="90" Stretch="Uniform"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Команда">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Button Click="Button_Click_1">
+                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Team}"></Label>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Тренер">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Coach}"></Label>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Cтадион">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding StadiumT.Stadium}"></Label>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Image Source="{Binding StadiumT.Photo , Converter={StaticResource qqq}}" Height="50" Width="90"  Stretch="Uniform"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Статистика" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <WrapPanel >
+                                <TextBlock Foreground="Black" FontSize="12" FontWeight="Bold"> 
+                                    <Run Background="#ff000000" Foreground="Green" Text="Забитые голы:"/>
+                                    <Run Text="{Binding StatisticTeamT.Scored}"/>
+                                    <Run Background="#ff000000" Foreground="Red" Text="/Красные карточки:"/>
+                                    <Run Text="{Binding StatisticTeamT.RedCards}"/>
+                                    <Run Background="#ff000000" Foreground="Yellow" Text="/Желтые карточки:"/>
+                                    <Run Text="{Binding StatisticTeamT.YellowCards}"/>
+                                                                        <LineBreak></LineBreak>
+                                    <Run Text="/Пропущенные голы:"/>
+                                    <Run Text="{Binding StatisticTeamT.Missed}"/>
+                                    <Run Text="/Спасение ворот:"/>
+                                    <Run Text="{Binding StatisticTeamT.SaveGoal}"/>
+                                    <Run Text="/Замены:"/>
+                                    <Run Text="{Binding StatisticTeamT.Substitution}"/>
+                                </TextBlock>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Кубки ЛЧ">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="../Images/FramePage.jpg"  Height="50" Width="90" Stretch="Uniform"/>
+                                <Label  VerticalContentAlignment="Center" FontSize="30" Foreground="Black" Background="#30ffffff" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" HorizontalContentAlignment="Left" Content="{Binding CupUEFA}"></Label>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid x:Name="PlayerDataGrid" GridLinesVisibility="Horizontal" CanUserAddRows="False"  BorderBrush="Black" BorderThickness="2" Grid.Row="3"  Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding ElementName=DataGridTeam, Path=SelectedItem.PlayerT}">
+            <DataGrid.Background>
+                <SolidColorBrush Color="#00999999"></SolidColorBrush>
+            </DataGrid.Background>
+            <DataGrid.Columns  >
+                <DataGridTemplateColumn IsReadOnly="True" Header="Страна"  >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
+                            <Image Source="{Binding CountryT.Photo}" Height="50" Width="90"   Stretch="Uniform"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Фото">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Image Source="{Binding Photo , Converter={StaticResource qqq}}" Height="50" Width="90"   Stretch="Uniform"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Игрок">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Button Click="Button_Click">
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Run Text="{Binding Name}"/>
+                                <Run Text="{Binding LastName}"/>
+                                </TextBlock>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Амплуа">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Run Text="{Binding RoleT.Role}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Кубки ЛЧ">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                               <Grid>
+                                <Image Source="../Images/FramePage.jpg"  Height="50" Width="90" Stretch="Uniform"/>
+                                <Label  VerticalContentAlignment="Center" FontSize="30" Foreground="Black" Background="#30ffffff" BorderBrush="Black" BorderThickness="2" FontWeight="Bold" HorizontalContentAlignment="Left" Content="{Binding CupUEFA}"></Label>
+                            </Grid>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True" Header="Статистика" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <WrapPanel >
+                                <TextBlock Foreground="Black" FontSize="12" FontWeight="Bold"> 
+                                    <Run Background="#ff000000" Foreground="Green" Text="Забитые голы:"/>
+                                    <Run Text="{Binding StatisticPlayerT.Scored}"/>
+                                    <Run Background="#ff000000" Foreground="Red" Text="/Красные карточки:"/>
+                                    <Run Text="{Binding StatisticPlayerT.RedCards}"/>
+                                    <Run Background="#ff000000" Foreground="Yellow" Text="/Желтые карточки:"/>
+                                    <Run Text="{Binding StatisticPlayerT.YellowCards}"/>
+                                    <LineBreak></LineBreak>
+                                    <Run Text="/Пропущенные голы:"/>
+                                    <Run Text="{Binding StatisticPlayerT.Missed}"/>
+                                    <Run Text="/Спасение ворот:"/>
+                                    <Run Text="{Binding StatisticPlayerT.SaveGoal}"/>
+                                    <Run Text="/Замены:"/>
+                                    <Run Text="{Binding StatisticPlayerT.Substitution}"/>
+                                </TextBlock>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Margin="0,3" >
+            <TextBox TextChanged="SearchTextBox_TextChanged" x:Name="SearchTextBox"/>
+            <ListBox x:Name="GameListBox"  HorizontalContentAlignment="Stretch" ItemsSource="{Binding Games}"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  />
+                            </Grid.RowDefinitions>
+                            <Image  Source="{Binding TeamT.Photo , Converter={StaticResource qqq}}" HorizontalAlignment="Left"  Width="70" Height="40" Stretch="Uniform"/>
+                            <Image Grid.Column="2" Source="{Binding TeamT1.Photo ,  Converter={StaticResource qqq}}" HorizontalAlignment="Right"  Width="70" Height="40"  Stretch="Uniform" />
+                            <TextBlock x:Name="SearchTextBlock" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14">
+                                <Run  Text="{Binding TeamT.Team}"/>
+                                <Run Text="{Binding Score}"/>
+                                <Run Text="{Binding TeamT1.Team}"/>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel  Grid.Row="3" Grid.Column="2" Margin="0,2">
+            <ListBox Background="#449900cc" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ElementName=GameListBox, Path=SelectedItems}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  />
+                                <RowDefinition  />
+                                <RowDefinition  />
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="15"  HorizontalAlignment="Left"  Width="90" Height="50">
+                                <Image  Source="{Binding TeamT.Photo ,  Converter={StaticResource qqq}}" Stretch="Uniform" Width="90" Height="50" />
+                            </Grid>
+                            <Grid Margin="15"  HorizontalAlignment="Right"  Width="90" Height="50" Grid.Column="2">
+                                <Image   Source="{Binding TeamT1.Photo , Converter={StaticResource qqq}}" Width="90" Height="50" Stretch="Uniform"/>
+                            </Grid>
+                            <Label TextBlock.FontSize="16" HorizontalContentAlignment="Center" TextBlock.FontWeight="Black"  Grid.Row="1" Grid.ColumnSpan="3"  Content="{Binding Date}"/>
+                            <TextBlock  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14">
+                                <Run Text="{Binding TeamT.Team}"/>
+                                <Run FontSize="16" FontWeight="DemiBold" Text="{Binding Score}"/>
+                                <Run Text="{Binding TeamT1.Team}"/>
+                            </TextBlock>
+                            <DockPanel TextBlock.FontSize="16"  TextBlock.FontWeight="Black" Grid.Row="1"  Grid.ColumnSpan="3">
+                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Win :"/>
+                                <Label  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Content="{Binding Converter={StaticResource ConverterToWin}}"/>
+                                <Grid>
+                                    <Image  Source="{Binding   Converter={StaticResource ConverterToPhoto} }"  VerticalAlignment="Center" HorizontalAlignment="Right"  Width="160" Height="80"  Stretch="Uniform"/>
+                                </Grid>
+                            </DockPanel>
+                            <DockPanel  TextBlock.FontSize="16"  TextBlock.FontWeight="Black" Grid.Row="2"  Grid.ColumnSpan="3">
+                                <Label  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Content="Рефери :"/>
+                                <Label  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Content="{Binding Referee}"/>
+                            </DockPanel>
+                            <DockPanel  TextBlock.FontSize="16"  TextBlock.FontWeight="Black" Grid.Row="3"  Grid.ColumnSpan="3">
+                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Стадион :"/>
+                                <Label  VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Content="{Binding StadiumT.Stadium}"/>
+                                <Grid>
+                                    <Image  Source="{Binding StadiumT.Photo , Converter={StaticResource qqq}}" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="200" Height="130"  Stretch="Fill"/>
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <Button Grid.ColumnSpan="3" Grid.Row="4" Content="Панель администратора" x:Name="ButtonAdmin" Foreground="White" FontSize="17" BorderBrush="Black" BorderThickness="5" FontWeight="Bold" Background="Purple" Click="AdminButton"></Button>
+
+    </Grid>
+</Window>
